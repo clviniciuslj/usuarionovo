@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Laranjeiras · Quadras de Tênis</title>
+<link rel="manifest" href="usuario-manifest.json" />
+<meta name="theme-color" content="#3f8f5b" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Laranjeiras" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="usuario.css" />
+</head>
+<body>
+
+<!-- POPUP: regulamento + termos (aceite obrigatório no primeiro acesso) -->
+<!-- POPUP: como funciona a fila (aceite obrigatório) -->
+<div class="modal-veil" id="modalRegulamento">
+  <div class="modal-card modal-card-lg">
+    <h3><i class="ri-information-line"></i> Como funciona a fila</h3>
+    <div class="modal-scroll">
+
+      <h4>Inscrição</h4>
+      <ul>
+        <li>A inscrição pode ser feita pelo aplicativo ou diretamente com o fiscal;</li>
+        <li>Ao se inscrever, permaneça nas proximidades das quadras ou com o WhatsApp disponível;</li>
+        <li>Não se ausente durante a espera — sua vez pode chegar a qualquer momento.</li>
+      </ul>
+
+      <h4>Chamada e tolerância</h4>
+      <ul>
+        <li>Você receberá um aviso pelo WhatsApp assim que se tornar o <strong>#1 da fila</strong>;</li>
+        <li>O <strong>#2 da fila</strong> também é avisado para ficar de prontidão;</li>
+        <li>Após a chamada pelo fiscal, você tem <strong>10 minutos</strong> para se apresentar nas quadras;</li>
+        <li>Não comparecendo no prazo, sua inscrição será removida e o próximo será chamado.</li>
+      </ul>
+
+      <div class="privacidade-resumo">
+        <h4>Aviso de privacidade</h4>
+        <p>O sistema utiliza nomes, Q/L, tipo de jogo e horário para organizar a fila. O WhatsApp é <strong>opcional</strong> e usado apenas para avisos. Seu número não é exibido aos demais usuários.</p>
+        <button type="button" class="link-btn" id="btnAbrirTermos">Ver Termos de Uso e Aviso de Privacidade completos</button>
+      </div>
+
+      <button type="button" class="link-btn" id="btnAbrirRegulamentoCompleto">Ver regulamento completo das quadras</button>
+
+    </div>
+    <label class="checkbox-row">
+      <input type="checkbox" id="aceiteCheckbox" />
+      <span>Li e entendi como funciona a fila e estou ciente do uso dos dados.</span>
+    </label>
+    <button class="btn btn-solid btn-block" id="btnAceitarRegulamento" disabled>Aceitar e continuar</button>
+  </div>
+</div>
+
+<!-- POPUP: regulamento completo das quadras -->
+<div class="modal-veil" id="modalRegulamentoCompleto">
+  <div class="modal-card modal-card-lg">
+    <h3><i class="ri-file-text-line"></i> Regulamento das quadras de tênis</h3>
+    <div class="modal-scroll">
+
+      <h4>1. Distribuição das quadras</h4>
+      <ul>
+        <li><strong>Quadras 1, 2 e 3:</strong> uso exclusivo para jogos entre condôminos e seus convidados, sendo vedado o uso para a realização de aulas;</li>
+        <li><strong>Quadra 4:</strong> permitido o agendamento de aulas no período das 07h às 21h, além do uso regular para jogos quando não houver aulas agendadas.</li>
+      </ul>
+
+      <h4>2. Tempo de jogo</h4>
+      <ul>
+        <li><strong>Jogos de simples:</strong> 45 minutos;</li>
+        <li><strong>Jogos de duplas:</strong> 1 hora;</li>
+        <li>O tempo de aquecimento está incluído na duração total;</li>
+        <li>O uso das quadras por menores de 14 anos é permitido até às 17h, ou em qualquer horário desde que acompanhados por um dos pais ou responsável legal.</li>
+      </ul>
+
+      <h4>3. Aulas</h4>
+      <ul>
+        <li><strong>Local permitido:</strong> exclusivamente Quadra 4;</li>
+        <li><strong>Horário permitido:</strong> das 07h às 21h;</li>
+        <li>É permitida a presença de um assistente por professor, a critério deste;</li>
+        <li><strong>Limite diário por professor:</strong> até 7 horas de aula.</li>
+      </ul>
+
+      <h4>4. Agendamento de aulas</h4>
+      <ul><li>Não é permitido o agendamento do mesmo horário em dias consecutivos para os mesmos alunos.</li></ul>
+
+      <h4>5. Períodos de exceção</h4>
+      <ul>
+        <li>Ficam suspensas as aulas nos seguintes períodos:</li>
+        <li>De 26/12 a 03/01;</li>
+        <li>Da sexta-feira véspera de Carnaval até a Quarta-feira de Cinzas.</li>
+      </ul>
+
+      <h4>6. Fiscalização e organização</h4>
+      <ul><li>Durante períodos de maior movimento, um colaborador designado pelo condomínio será responsável pela organização da ocupação das quadras.</li></ul>
+
+      <h4>7. Regras complementares</h4>
+      <ul>
+        <li>É vedado o agendamento de aulas nas Quadras 1, 2 e 3;</li>
+        <li>É obrigatório o uso de vestimenta e calçados adequados à prática do tênis.</li>
+      </ul>
+
+      <p class="texto-disposicao-final"><strong>Disposição final:</strong> Este regulamento foi aprovado pelo Conselho de Administração do Condomínio Laranjeiras em 13/06/2025 e entra em vigor a partir de 14/06/2025.</p>
+    </div>
+    <button class="btn btn-solid btn-block" id="btnFecharRegulamentoCompleto">Fechar</button>
+  </div>
+</div>
+
+<!-- POPUP: termos de uso completos -->
+<div class="modal-veil" id="modalTermos">
+  <div class="modal-card modal-card-lg">
+    <h3><i class="ri-shield-check-line"></i> Termos de uso e aviso de privacidade</h3>
+    <div class="modal-scroll">
+      <p>Este sistema tem como finalidade organizar o uso das quadras de tênis do Condomínio Laranjeiras, controlar a fila de espera, registrar jogos em andamento e auxiliar a administração/fiscalização.</p>
+      <h4>1. Dados coletados</h4>
+      <ul>
+        <li>Nomes dos jogadores;</li>
+        <li>Categoria Q/L informada pelos jogadores;</li>
+        <li>Tipo de jogo, simples ou dupla;</li>
+        <li>Horário de entrada na fila;</li>
+        <li>Horário de início e término do jogo;</li>
+        <li>Quadra utilizada;</li>
+        <li>Identificador técnico anônimo do usuário, usado para permitir edição ou remoção da própria inscrição;</li>
+        <li>Número de WhatsApp, somente quando o usuário optar por receber aviso.</li>
+      </ul>
+      <h4>2. Dados não coletados</h4>
+      <p>O sistema não coleta CPF, RG, endereço residencial, localização GPS, fotos, contatos do celular, dados bancários ou informações de pagamento.</p>
+      <h4>3. Finalidade do uso</h4>
+      <ul>
+        <li>Organizar a fila de espera;</li>
+        <li>Exibir a posição dos jogadores na fila;</li>
+        <li>Controlar o tempo de uso das quadras;</li>
+        <li>Permitir que o usuário edite ou remova sua própria inscrição;</li>
+        <li>Permitir que a administração/fiscalização acompanhe e organize os jogos;</li>
+        <li>Gerar histórico administrativo de uso das quadras;</li>
+        <li>Permitir aviso por WhatsApp quando o usuário solicitar essa opção.</li>
+      </ul>
+      <h4>4. Uso do WhatsApp</h4>
+      <p>O número de WhatsApp é opcional. Quando informado, será usado apenas pela administração/fiscalização para avisar quando a vez do usuário estiver se aproximando.</p>
+      <p>O número de WhatsApp não será exibido publicamente na fila e não será disponibilizado aos demais usuários comuns do sistema.</p>
+      <h4>5. Informações visíveis aos usuários</h4>
+      <p>Nomes dos jogadores, Q/L, tipo de jogo e posição na fila poderão ser exibidos aos demais usuários, pois fazem parte da organização da fila.</p>
+      <p>Telefone/WhatsApp e dados administrativos internos não serão exibidos aos usuários comuns.</p>
+      <h4>6. Histórico administrativo</h4>
+      <p>O sistema poderá manter histórico de jogos realizados, contendo informações como nomes dos jogadores, Q/L, quadra utilizada, horário de início e horário de término. Esse histórico é destinado ao controle interno e consulta administrativa.</p>
+      <h4>7. Segurança dos dados</h4>
+      <p>O sistema utiliza regras de acesso no banco de dados para separar informações públicas da fila e informações privadas, como o número de WhatsApp. Apenas usuários autorizados pela administração possuem acesso às funções administrativas.</p>
+      <h4>8. Responsabilidade do usuário</h4>
+      <p>O usuário deve informar dados corretos e utilizar o sistema apenas para fins relacionados ao uso das quadras de tênis. O uso indevido, tentativa de alteração de dados de terceiros ou inserção de informações falsas poderá resultar na remoção da inscrição e comunicação à administração do condomínio.</p>
+      <h4>9. Correção ou exclusão</h4>
+      <p>Caso o usuário deseje corrigir ou excluir alguma informação informada no sistema, deverá procurar a administração/fiscalização responsável pelas quadras.</p>
+      <h4>10. Alterações</h4>
+      <p>Este aviso poderá ser atualizado para refletir melhorias no sistema, mudanças operacionais ou ajustes nas regras de uso das quadras.</p>
+    </div>
+    <button class="btn btn-solid btn-block" id="btnFecharTermos">Fechar</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <header class="topbar">
+    <span class="topbar-spacer" aria-hidden="true"></span>
+    <div class="brand">
+      <span class="brand-mark"><img src="icon-admin.png" alt="Laranjeiras" /></span>
+      <div>
+        <strong>Laranjeiras</strong>
+        <small>Quadras de Tênis</small>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeToggle" title="Alternar tema"><i class="ri-moon-line"></i></button>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="status-card" id="meuStatus" style="display:none"></div>
+
+    <section class="courts-row" id="courtsRow">
+      <div class="court-skel"></div>
+      <div class="court-skel"></div>
+      <div class="court-skel"></div>
+    </section>
+
+    <section class="panel queue-panel">
+      <div class="panel-head">
+        <h2><i class="ri-walk-line"></i> Fila de espera</h2>
+        <span class="pill" id="filaCount">0</span>
+      </div>
+      <div class="queue-list" id="queueList">
+        <div class="queue-skel"></div>
+        <div class="queue-skel"></div>
+      </div>
+    </section>
+
+    <div class="panel inscricoes-fechadas" id="inscricoesFechadas" style="display:none">
+      <strong>Inscrições online fechadas</strong>
+      <span>Acompanhe a fila normalmente. Para entrar na fila neste momento, procure o fiscal.</span>
+    </div>
+
+    <section class="panel add-panel open" id="formPanel">
+      <div class="form-head">
+        <h2 id="formTitle"><i class="ri-edit-2-line"></i> Inscrever-se na fila</h2>
+      </div>
+
+      <div class="alerta-edicao" id="alertaEdicao" style="display:none">Você está <strong>editando</strong> sua inscrição atual.</div>
+
+      <div class="segmented" id="tipoJogoGroup">
+        <button type="button" class="segmented-opt active" data-valor="45">Simples <small>2 jog. · 45min</small></button>
+        <button type="button" class="segmented-opt" data-valor="60">Duplas <small>3-4 jog. · 1h</small></button>
+      </div>
+
+      <div class="players-grid" id="playersGrid">
+        <input type="text" class="p-nome" id="j1_nome" placeholder="Jogador 1 *" />
+        <input type="text" class="p-ql" id="j1_ql" placeholder="Q/L *" inputmode="numeric" maxlength="5" />
+        <input type="text" class="p-nome" id="j2_nome" placeholder="Jogador 2 *" />
+        <input type="text" class="p-ql" id="j2_ql" placeholder="Q/L *" inputmode="numeric" maxlength="5" />
+        <input type="text" class="p-nome" id="j3_nome" placeholder="Jogador 3 *" data-dupla />
+        <input type="text" class="p-ql" id="j3_ql" placeholder="Q/L *" inputmode="numeric" maxlength="5" data-dupla />
+        <input type="text" class="p-nome" id="j4_nome" placeholder="Jogador 4" data-dupla />
+        <input type="text" class="p-ql" id="j4_ql" placeholder="Q/L" inputmode="numeric" maxlength="5" data-dupla />
+      </div>
+
+      <button class="btn btn-solid btn-block" id="btnSubmit"><i class="ri-add-line"></i> Entrar na fila</button>
+      <button class="btn btn-outline btn-block" id="btnCancelarEdicao" style="display:none">Cancelar edição</button>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    Desenvolvido por <strong>Vinícius Santos.</strong>
+    <button type="button" class="link-btn" id="btnAbrirTermosFooter">Termos e Privacidade</button>
+  </footer>
+</div>
+
+<!-- MODAL: aviso por WhatsApp (opcional) -->
+<div class="modal-veil" id="modalWhatsapp">
+  <div class="modal-card modal-card-sm">
+    <div class="modal-icon modal-icon-wpp"><i class="ri-whatsapp-line"></i></div>
+    <h3>Quer receber um aviso?</h3>
+    <p>Podemos te avisar pelo WhatsApp quando sua vez estiver chegando.</p>
+    <div class="modal-actions" id="wppEscolhaBox">
+      <button class="btn btn-ghost" id="wppNao">Não, obrigado</button>
+      <button class="btn btn-solid" id="wppSim">Sim, quero ser avisado</button>
+    </div>
+    <div id="wppInputBox" style="display:none">
+      <label class="field"><span>Informe seu WhatsApp</span>
+        <input type="tel" class="field-input" id="wppNumero" placeholder="WhatsApp com DDD" inputmode="numeric" />
+      </label>
+      <p class="hint-text">O número é usado apenas pela administração/fiscalização para avisar quando sua vez estiver se aproximando, e não é exibido aos demais usuários.</p>
+      <p class="login-error" id="wppErro">Informe um número válido com DDD.</p>
+      <button class="btn btn-solid btn-block" id="wppConfirmar">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: confirmação genérica -->
+<div class="modal-veil" id="modalConfirmar">
+  <div class="modal-card modal-card-sm">
+    <div class="modal-icon"><i class="ri-error-warning-line"></i></div>
+    <h3 id="confirmTitulo">Confirmar ação</h3>
+    <p id="confirmTexto">Tem certeza?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="confirmCancelar">Cancelar</button>
+      <button class="btn btn-danger" id="confirmOk">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="snackbar-root" id="snackbarRoot"></div>
+
+<script type="module" src="usuario.js"></script>
+</body>
+</html>

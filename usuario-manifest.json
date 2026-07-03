@@ -1,0 +1,12 @@
+{
+  "name": "Laranjeiras - Quadras de Tênis",
+  "short_name": "Laranjeiras",
+  "start_url": "./usuario.html",
+  "display": "standalone",
+  "background_color": "#fbf8f1",
+  "theme_color": "#3f8f5b",
+  "scope": "./",
+  "icons": [
+    { "src": "icon-admin.png", "sizes": "1254x1254", "type": "image/png", "purpose": "any" }
+  ]
+}
