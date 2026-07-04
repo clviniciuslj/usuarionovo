@@ -232,10 +232,33 @@ body.dark .btn-outline, body.dark .btn-ghost { --ripple-color: rgba(255, 255, 25
 @keyframes emptyIconFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 .court-free-msg { color: var(--ink-soft); font-size: .76rem; }
 
-.court-progress-track { height: 5px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
-.court-progress-bar { height: 100%; background: var(--primary); border-radius: 99px; transition: width 1s linear; }
-.court-progress-bar.baixo { background: var(--accent); }
-.court-progress-bar.fim { background: var(--danger); }
+.court-ring-wrap {
+  position: relative;
+  width: 76px; height: 76px;
+  margin: .2rem auto 0;
+  flex-shrink: 0;
+}
+.court-ring-svg {
+  width: 76px; height: 76px;
+  transform: rotate(-90deg);
+  display: block;
+}
+.ring-bg   { fill: none; stroke: var(--surface-2); stroke-width: 5; }
+.ring-fill {
+  fill: none; stroke: var(--primary); stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 188.5;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+}
+.ring-fill.baixo { stroke: var(--accent); }
+.ring-fill.fim   { stroke: var(--danger); }
+.court-ring-wrap .court-timer {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  margin: 0;
+}
 
 /* ---------- Queue ---------- */
 
@@ -301,6 +324,19 @@ body.dark .btn-outline, body.dark .btn-ghost { --ripple-color: rgba(255, 255, 25
 
 .queue-actions-self { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-top: .5rem; }
 .queue-actions-self .btn { padding: .5rem; font-size: .78rem; }
+
+.wait-est {
+  font-size: .68rem; font-weight: 700;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 6px; padding: .1rem .42rem;
+  color: var(--ink-soft); white-space: nowrap; flex-shrink: 0;
+  font-variant-numeric: tabular-nums; margin-left: auto;
+}
+.wait-est.proximo {
+  background: var(--primary-soft);
+  border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
+  color: var(--primary);
+}
 
 .queue-skel { height: 88px; border-radius: 14px; background: linear-gradient(90deg, var(--surface-2) 25%, var(--border) 37%, var(--surface-2) 63%); background-size: 400% 100%; animation: shimmer 1.4s infinite; }
 .queue-list-animate .queue-item { animation: queueItemEnter .32s ease; }

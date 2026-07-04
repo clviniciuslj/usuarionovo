@@ -50,6 +50,14 @@ function normalizarWhatsapp(v) {
   if (n.length === 10 || n.length === 11) n = "55" + n;
   return n;
 }
+function abreviarNome(nome) {
+  const partes = String(nome || "").trim().split(/\s+/);
+  if (partes.length <= 1) return partes[0] || "";
+  return partes[0] + " " + partes[1][0].toUpperCase() + ".";
+}
+function formatarNomesAbreviados(jogadores = []) {
+  return (jogadores || []).filter(Boolean).map((n) => escaparHtml(abreviarNome(n))).join(" • ");
+}
 function formatarNomesPareados(jogadores = []) {
   const nomes = (jogadores || []).filter(Boolean).map((n) => escaparHtml(n));
   if (nomes.length === 0) return "";
@@ -406,27 +414,45 @@ function renderQuadras() {
       </div>`;
     }
     const restante = q.tempoRestante || 0;
+    const pct = calcularProgresso(q) / 100;
+    const circ = 2 * Math.PI * 30;
+    const offset = circ * (1 - pct);
+    const baixo = restante > 0 && restante <= 300 && !q.pausada;
+    const fim   = restante <= 0;
+    const ringClass = fim ? "ring-fill fim" : baixo ? "ring-fill baixo" : "ring-fill";
+    const timerClass = fim ? "court-timer warning" : baixo ? "court-timer warning" : "court-timer";
     return `<div class="court-card ocupada">
       <div class="court-top">
         <div class="court-badge">Q${q.id}</div>
         <div>
-          <div class="court-players">${formatarNomesPareados(q.jogo?.jogadores)}</div>
+          <div class="court-players">${formatarNomesAbreviados(q.jogo?.jogadores)}</div>
           <div class="court-meta">${q.rodando ? `Término ${q.hSaida || "--:--"}` : "Aguardando início"}</div>
         </div>
       </div>
-      <div id="timer-q${q.id}" class="court-timer ${restante > 0 && restante < 60 && !q.pausada ? "warning" : ""}">${formatarTimer(restante)}</div>
-      <div class="court-progress-track"><div id="progress-q${q.id}" class="court-progress-bar" style="width:${calcularProgresso(q)}%"></div></div>
+      <div class="court-ring-wrap">
+        <svg class="court-ring-svg" viewBox="0 0 72 72">
+          <circle class="ring-bg" cx="36" cy="36" r="30"/>
+          <circle id="ring-q${q.id}" class="${ringClass}" cx="36" cy="36" r="30" style="stroke-dashoffset:${offset.toFixed(1)}"/>
+        </svg>
+        <div id="timer-q${q.id}" class="${timerClass}">${formatarTimer(restante)}</div>
+      </div>
     </div>`;
   }).join("");
 }
 
 function atualizarProgressoQuadra(q) {
-  const barra = document.getElementById(`progress-q${q.id}`);
-  if (!barra) return;
+  const ring  = document.getElementById(`ring-q${q.id}`);
+  const timer = document.getElementById(`timer-q${q.id}`);
+  if (!ring || !timer) return;
   const restante = Math.max(0, Number(q.tempoRestante) || 0);
-  barra.style.width = `${calcularProgresso(q)}%`;
-  barra.classList.toggle("baixo", restante > 0 && restante <= 300);
-  barra.classList.toggle("fim", restante <= 0);
+  const pct    = calcularProgresso(q) / 100;
+  const circ   = 2 * Math.PI * 30;
+  ring.style.strokeDashoffset = (circ * (1 - pct)).toFixed(1);
+  const baixo = restante > 0 && restante <= 300 && !q.pausada;
+  const fim   = restante <= 0;
+  ring.className  = fim ? "ring-fill fim" : baixo ? "ring-fill baixo" : "ring-fill";
+  timer.className = (fim || baixo) ? "court-timer warning" : "court-timer";
+  timer.textContent = formatarTimer(restante);
 }
 
 // ---------- Render: status "minha posição" ----------
@@ -485,12 +511,19 @@ function renderFila(animar = false) {
     if (ts.length > 0) {
       ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
       const qE = ts[0];
-      const dp = new Date(agora + qE.tempoSeg * 1000);
-      const minutosPrevisao = Math.max(0, Math.round((dp.getTime() - agora) / 60000));
+      const minutosPrevisao = Math.max(0, Math.round(qE.tempoSeg / 60));
       qE.tempoSeg += (j.duracao || 45) * 60;
-      previsaoHtml = `Q${qE.id} · ${formatarHora(dp)} · ${formatarTempoRelativo(minutosPrevisao)}${qE.incerta ? " · sujeita a alteração" : ""}`;
+      if (minutosPrevisao === 0) {
+        previsaoHtml = `<span class="wait-est proximo">≈ próximo</span>`;
+      } else if (minutosPrevisao < 60) {
+        previsaoHtml = `<span class="wait-est">≈ ${minutosPrevisao} min</span>`;
+      } else {
+        const h = Math.floor(minutosPrevisao / 60);
+        const m = minutosPrevisao % 60;
+        previsaoHtml = `<span class="wait-est">≈ ${h}h${m > 0 ? ` ${m}min` : ""}</span>`;
+      }
     } else {
-      previsaoHtml = "Aguardando quadra disponível";
+      previsaoHtml = `<span class="wait-est">≈ disponível</span>`;
     }
 
     const ehMinha = meuUid && j.deviceId === meuUid;
@@ -508,13 +541,13 @@ function renderFila(animar = false) {
     html.push(`<div class="queue-item ${ehMinha ? "minha" : ""}">
       <div class="queue-item-top">
         ${posHtml}
-        <div class="queue-names">${formatarNomesPareados(j.jogadores)}</div>
+        <div class="queue-names">${formatarNomesAbreviados(j.jogadores)}</div>
         ${ehMinha ? '<span class="voce-tag">Você</span>' : ""}
         <span class="type-chip ${(j.duracao || 45) === 60 ? "dupla" : "simples"}">${tipoTexto}</span>
+        ${previsaoHtml}
       </div>
       <div class="queue-meta">
-        <span>${previsaoHtml}</span>
-        <span class="dot"></span><span>${chegada}</span>
+        <span>${chegada}</span>
         ${ehMinha ? `<span class="dot"></span><span>${escaparHtml(detalhes)}</span>` : ""}
       </div>
       ${ehMinha ? `<div class="queue-actions-self">
